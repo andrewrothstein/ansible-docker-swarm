@@ -1,2 +1,3 @@
 ---
 # vars file for docker-swarm
+docker_swarm_advertise_addr: "{{hostvars[inventory_hostname]['ansible_' + docker_swarm_network_iface]['ipv4']['address']}}"
