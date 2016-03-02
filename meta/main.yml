@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Andrew Rothstein
+  description: 'a consul based swarm'
+  company: BlackRock
+  license:
+    - MIT
+  min_ansible_version: 1.2
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 22
+        - 23
+
+  categories:
+    - development
+
+dependencies: []
+  
