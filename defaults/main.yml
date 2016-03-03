@@ -2,4 +2,4 @@
 # defaults file for docker-swarm
 docker_swarm_network_iface: eth0
 docker_swarm_port: 8333
-docker_swarm_container: 'dockerswarm/swarm:master'
+docker_swarm_container: 'swarm:latest'

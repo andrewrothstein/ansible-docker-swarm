@@ -8,10 +8,8 @@
     pull: always
     state: started
     restart_policy: always
-    ports:
-      - "4000:2375"
     command: >
-      join --advertise {{docker_swarm_advertise_addr}}:4000
+      join --advertise {{docker_swarm_advertise_addr}}:2375
       consul://{{docker_swarm_advertise_addr}}:8500/swarm
 
 - name: launch swarm-manager in docker
