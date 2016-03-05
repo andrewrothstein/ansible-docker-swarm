@@ -3,3 +3,9 @@
 docker_swarm_network_iface: eth0
 docker_swarm_port: 8333
 docker_swarm_container: 'swarm:latest'
+
+docker_swarm_docker_port: 2375
+#TLS?
+#docker_swarm_docker_port: 2376
+
+docker_swarm_consul_port: 8500

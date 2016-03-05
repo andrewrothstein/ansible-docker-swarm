@@ -1,17 +1,5 @@
 ---
 # tasks file for docker-swarm
-- name: launch swarm-join in docker
-  when: inventory_hostname in groups['docker-swarm-join']
-  docker:
-    name: swarm-join
-    image: '{{docker_swarm_container}}'
-    pull: always
-    state: started
-    restart_policy: always
-    command: >
-      join --advertise {{docker_swarm_advertise_addr}}:2375
-      consul://{{docker_swarm_advertise_addr}}:8500/swarm
-
 - name: launch swarm-manager in docker
   when: inventory_hostname in groups['docker-swarm-manager']
   docker:
@@ -21,9 +9,23 @@
     state: started
     restart_policy: always
     ports:
-      - "{{docker_swarm_port}}:2375"
+      - "{{docker_swarm_port}}:{{docker_swarm_docker_port}}"
     command: >
-      manage -H :2375 --replication
+      manage
+      -H 0.0.0.0:{{docker_swarm_docker_port}}
+      --replication
       --advertise {{docker_swarm_advertise_addr}}:{{docker_swarm_port}}
-      consul://{{docker_swarm_advertise_addr}}:8500/swarm
+      consul://{{docker_swarm_consul_addr}}:{{docker_swarm_consul_port}}/swarm
+
+- name: launch swarm-join in docker
+  when: inventory_hostname in groups['docker-swarm-join']
+  docker:
+    name: swarm-join
+    image: '{{docker_swarm_container}}'
+    pull: always
+    state: started
+    restart_policy: always
+    command: >
+      join --advertise {{docker_swarm_advertise_addr}}:{{docker_swarm_docker_port}}
+      consul://{{docker_swarm_consul_addr}}:{{docker_swarm_consul_port}}/swarm
 
